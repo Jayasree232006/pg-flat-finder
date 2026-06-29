@@ -1,0 +1,18 @@
+### Get All Properties
+GET http://localhost:8080/api/properties
+
+### Add New Property
+POST http://localhost:8080/api/properties
+Content-Type: application/json
+
+{
+  "title": "Spacious PG near College",
+  "type": "PG",
+  "location": "Bangalore",
+  "rent": 8000,
+  "rooms": 1,
+  "description": "Clean room with WiFi and food included",
+  "contactNumber": "9876543210",
+  "ownerName": "Ravi Kumar",
+  "available": true
+}
