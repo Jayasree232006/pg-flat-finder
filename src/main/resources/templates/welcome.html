@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PG Flat Finder - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; }
+
+        /* Navbar */
+        .navbar {
+            background: transparent;
+            padding: 20px 40px;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white !important;
+        }
+        .navbar-brand span { color: #4cc9f0; }
+        .nav-btns a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .nav-btns a:hover { color: #4cc9f0; }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(76,201,240,0.15), transparent);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 4s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .hero-badge {
+            background: rgba(76,201,240,0.2);
+            border: 1px solid #4cc9f0;
+            color: #4cc9f0;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        .hero h1 span { color: #4cc9f0; }
+        .hero p {
+            font-size: 1.2rem;
+            color: #a8b2d8;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #4361ee, #4cc9f0);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(67,97,238,0.4);
+        }
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(67,97,238,0.6);
+            color: white;
+        }
+        .btn-secondary-custom {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            margin-left: 15px;
+            transition: all 0.3s;
+        }
+        .btn-secondary-custom:hover {
+            background: white;
+            color: #1a1a2e;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        .feature-card {
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 20px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        .feature-card:hover { transform: translateY(-10px); }
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #4361ee, #4cc9f0);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.8rem;
+            color: white;
+        }
+        .feature-card h5 {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1a1a2e;
+        }
+        .feature-card p { color: #777; font-size: 0.9rem; }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, #4361ee, #4cc9f0);
+            padding: 60px 0;
+            color: white;
+            text-align: center;
+        }
+        .stat-item { padding: 20px; }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            display: block;
+        }
+        .stat-label { font-size: 1rem; opacity: 0.9; }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+            background: #1a1a2e;
+            color: white;
+        }
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            color: #a8b2d8;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0f0f1a;
+            color: #a8b2d8;
+            text-align: center;
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" href="/">🏠 PG<span>Flat</span>Finder</a>
+        <div class="nav-btns">
+            <a href="/home">Browse Properties</a>
+            <a href="/login">Login</a>
+            <a href="/register"
+               style="background:linear-gradient(135deg,#4361ee,#4cc9f0);
+                      padding:8px 20px; border-radius:50px;">
+                Register
+            </a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero">
+    <div class="hero-content container">
+        <div class="hero-badge">
+            🏠 #1 PG & Flat Finder for Students
+        </div>
+        <h1>Find Your Perfect<br><span>Home Away</span> From Home</h1>
+        <p>Discover affordable PGs, flats and hostels near your college.
+            Verified listings, trusted owners, hassle-free search.</p>
+        <a href="/home" class="btn-primary-custom">
+            <i class="fas fa-search"></i> Browse Properties
+        </a>
+        <a href="/register" class="btn-secondary-custom">
+            Get Started Free
+        </a>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="features">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-2" style="color:#1a1a2e;">
+            Why Choose PGFlatFinder?
+        </h2>
+        <p class="text-center text-muted mb-5">
+            Everything you need to find your perfect accommodation
+        </p>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h5>Easy Search</h5>
+                    <p>Search properties by location, type and budget in seconds</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h5>Verified Listings</h5>
+                    <p>All properties are verified by our team for your safety</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h5>Google Maps</h5>
+                    <p>View exact property location on Google Maps before visiting</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h5>Direct Contact</h5>
+                    <p>Contact owners directly via call or WhatsApp instantly</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <h5>Best Prices</h5>
+                    <p>Find the most affordable accommodations near your college</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h5>24/7 Available</h5>
+                    <p>Browse properties anytime anywhere from any device</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div class="stats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Properties Listed</span>
+            </div>
+            <div class="col-md-3 stat-item">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Cities Covered</span>
+            </div>
+            <div class="col-md-3 stat-item">
+                <span class="stat-number">1000+</span>
+                <span class="stat-label">Happy Students</span>
+            </div>
+            <div class="col-md-3 stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Verified Listings</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="cta-section">
+    <div class="container">
+        <h2>Ready to Find Your <span style="color:#4cc9f0;">Perfect PG?</span></h2>
+        <p>Join thousands of students who found their home with PGFlatFinder</p>
+        <a href="/home" class="btn-primary-custom">
+            <i class="fas fa-search"></i> Browse Properties Now
+        </a>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <h5>🏠 PGFlatFinder</h5>
+    <p>Helping students find their perfect home away from home</p>
+    <p style="margin-top:10px; font-size:0.8rem;">
+        Built with ❤️ using Spring Boot + MySQL + Bootstrap
+    </p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

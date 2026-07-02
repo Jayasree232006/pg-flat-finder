@@ -22,7 +22,16 @@ public class Property {
     private String type;
 
     @Column(nullable = false)
+    private String gender;
+
+    @Column(nullable = false)
     private String location;
+
+    @Column(nullable = false)
+    private String address;
+
+    @Column(nullable = false, length = 1000)
+    private String googleMapsLink;
 
     @Column(nullable = false)
     private Double rent;
