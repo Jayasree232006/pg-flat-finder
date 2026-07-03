@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: #1a1a2e;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .dashboard-title {
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            height: 100%;
+        }
+
+        .dashboard-card h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4361ee;
+        }
+
+        .dashboard-card p {
+            margin: 0;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/admin/dashboard">
+            🏠 PGFlatFinder Admin
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <h2 class="dashboard-title">
+        📊 Admin Dashboard
+    </h2>
+
+    <div class="row g-4">
+
+        <!-- Total Properties -->
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <h3 th:text="${totalProperties}">0</h3>
+                <p>Total Properties</p>
+            </div>
+        </div>
+
+        <!-- Total Contact Requests -->
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <h3 th:text="${totalRequests}">0</h3>
+                <p>Total Contact Requests</p>
+            </div>
+        </div>
+
+        <!-- Pending Requests -->
+        <!-- Pending Requests -->
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <h3 th:text="${pendingRequests}">0</h3>
+                <p>Pending Requests</p>
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
