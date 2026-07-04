@@ -3,33 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${property.title} + ' - PGFlatFinder'">Property Detail</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <title th:text="${property.title} + ' - PGFlatFinder'">
+        Property Detail
+    </title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          rel="stylesheet">
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+        }
 
         .navbar {
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             padding: 15px 30px;
         }
+
         .navbar-brand {
             font-size: 1.8rem;
             font-weight: 800;
             color: white !important;
         }
-        .navbar-brand span { color: #4cc9f0; }
+
+        .navbar-brand span {
+            color: #4cc9f0;
+        }
 
         .hero-banner {
             background: linear-gradient(135deg, #1a1a2e, #0f3460);
             padding: 40px 0;
             color: white;
         }
+
         .hero-banner h1 {
             font-size: 2rem;
             font-weight: 800;
         }
+
         .badge-available {
             background: #27ae60;
             color: white;
@@ -38,6 +60,7 @@
             font-size: 0.85rem;
             font-weight: 600;
         }
+
         .badge-unavailable {
             background: #e74c3c;
             color: white;
@@ -46,6 +69,7 @@
             font-size: 0.85rem;
             font-weight: 600;
         }
+
         .type-badge {
             background: #4361ee;
             color: white;
@@ -63,6 +87,7 @@
             padding: 30px;
             margin-bottom: 20px;
         }
+
         .detail-card h4 {
             font-weight: 700;
             color: #1a1a2e;
@@ -70,6 +95,7 @@
             padding-bottom: 10px;
             border-bottom: 2px solid #f0f2f5;
         }
+
         .info-row {
             display: flex;
             align-items: center;
@@ -77,7 +103,11 @@
             border-bottom: 1px solid #f0f2f5;
             font-size: 1rem;
         }
-        .info-row:last-child { border-bottom: none; }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
         .info-row i {
             width: 35px;
             height: 35px;
@@ -91,13 +121,17 @@
             margin-right: 15px;
             flex-shrink: 0;
         }
+
         .info-label {
             font-weight: 600;
             color: #555;
             width: 120px;
             flex-shrink: 0;
         }
-        .info-value { color: #222; }
+
+        .info-value {
+            color: #222;
+        }
 
         .rent-display {
             background: linear-gradient(135deg, #4361ee, #4cc9f0);
@@ -107,10 +141,12 @@
             text-align: center;
             margin-bottom: 20px;
         }
+
         .rent-display .amount {
             font-size: 2.5rem;
             font-weight: 900;
         }
+
         .rent-display .label {
             font-size: 0.9rem;
             opacity: 0.9;
@@ -124,11 +160,26 @@
             margin-bottom: 20px;
             text-align: center;
         }
+
         .contact-card h5 {
             font-weight: 700;
             color: #1a1a2e;
             margin-bottom: 15px;
         }
+
+        .owner-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .owner-phone {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
         .btn-call {
             background: linear-gradient(135deg, #27ae60, #2ecc71);
             color: white;
@@ -142,7 +193,11 @@
             display: block;
             transition: transform 0.2s;
         }
-        .btn-call:hover { transform: scale(1.02); color: white; }
+
+        .btn-call:hover {
+            transform: scale(1.02);
+            color: white;
+        }
 
         .btn-whatsapp {
             background: linear-gradient(135deg, #25d366, #128c7e);
@@ -156,7 +211,11 @@
             display: block;
             transition: transform 0.2s;
         }
-        .btn-whatsapp:hover { transform: scale(1.02); color: white; }
+
+        .btn-whatsapp:hover {
+            transform: scale(1.02);
+            color: white;
+        }
 
         .map-container {
             border-radius: 15px;
@@ -175,6 +234,7 @@
             display: inline-block;
             transition: all 0.3s;
         }
+
         .btn-back:hover {
             background: #4361ee;
             color: white;
@@ -189,85 +249,195 @@
         }
     </style>
 </head>
+
 <body>
 
 <!-- Navbar -->
 <nav class="navbar">
     <div class="container d-flex justify-content-between align-items-center">
-        <a class="navbar-brand" href="/">🏠 PG<span>Flat</span>Finder</a>
-        <a href="/home" class="btn-back">
-            <i class="fas fa-arrow-left"></i> Back to Listings
+
+        <a class="navbar-brand" href="/">
+            🏠 PG<span>Flat</span>Finder
         </a>
+
+        <a href="/home" class="btn-back">
+            <i class="fas fa-arrow-left"></i>
+            Back to Listings
+        </a>
+
     </div>
 </nav>
+
 
 <!-- Hero Banner -->
 <div class="hero-banner">
     <div class="container">
+
         <div class="mb-2">
-            <span class="badge-available" th:if="${property.available}">✅ Available</span>
-            <span class="badge-unavailable" th:unless="${property.available}">❌ Not Available</span>
-            <span class="type-badge" th:text="${property.type}">PG</span>
+
+            <span class="badge-available"
+                  th:if="${property.available}">
+                ✅ Available
+            </span>
+
+            <span class="badge-unavailable"
+                  th:unless="${property.available}">
+                ❌ Not Available
+            </span>
+
+            <span class="type-badge"
+                  th:text="${property.type}">
+                PG
+            </span>
+
         </div>
-        <h1 th:text="${property.title}">Property Title</h1>
+
+        <h1 th:text="${property.title}">
+            Property Title
+        </h1>
+
         <p class="mt-2" style="color:#a8b2d8;">
+
             <i class="fas fa-map-marker-alt"></i>
-            <span th:text="${property.location}">Location</span>
+
+            <span th:text="${property.location}">
+                Location
+            </span>
+
         </p>
+
     </div>
 </div>
 
+
 <!-- Main Content -->
 <div class="container mt-4">
+
     <div class="row">
 
         <!-- Left Column -->
         <div class="col-md-8">
 
+
             <!-- Property Details -->
             <div class="detail-card">
-                <h4><i class="fas fa-info-circle" style="color:#4361ee"></i> Property Details</h4>
+
+                <h4>
+                    <i class="fas fa-info-circle"
+                       style="color:#4361ee"></i>
+                    Property Details
+                </h4>
+
 
                 <div class="info-row">
+
                     <i class="fas fa-home"></i>
-                    <span class="info-label">Type</span>
-                    <span class="info-value" th:text="${property.type}">PG</span>
+
+                    <span class="info-label">
+                        Type
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${property.type}">
+                        PG
+                    </span>
+
                 </div>
+
+
                 <div class="info-row">
+
                     <i class="fas fa-map-marker-alt"></i>
-                    <span class="info-label">Location</span>
-                    <span class="info-value" th:text="${property.location}">Location</span>
+
+                    <span class="info-label">
+                        Location
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${property.location}">
+                        Location
+                    </span>
+
                 </div>
+
+
                 <div class="info-row">
+
                     <i class="fas fa-door-open"></i>
-                    <span class="info-label">Rooms</span>
-                    <span class="info-value" th:text="${property.rooms} + ' Room(s)'">1</span>
+
+                    <span class="info-label">
+                        Rooms
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${property.rooms} + ' Room(s)'">
+                        1
+                    </span>
+
                 </div>
+
+
                 <div class="info-row">
+
                     <i class="fas fa-user"></i>
-                    <span class="info-label">Owner</span>
-                    <span class="info-value" th:text="${property.ownerName}">Owner</span>
+
+                    <span class="info-label">
+                        Owner
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${property.ownerName}">
+                        Owner
+                    </span>
+
                 </div>
+
+
                 <div class="info-row">
+
                     <i class="fas fa-check-circle"></i>
-                    <span class="info-label">Status</span>
+
+                    <span class="info-label">
+                        Status
+                    </span>
+
                     <span class="info-value"
                           th:text="${property.available} ? 'Available' : 'Not Available'">
                     </span>
+
                 </div>
+
             </div>
+
 
             <!-- Description -->
             <div class="detail-card">
-                <h4><i class="fas fa-align-left" style="color:#4361ee"></i> Description</h4>
+
+                <h4>
+                    <i class="fas fa-align-left"
+                       style="color:#4361ee"></i>
+                    Description
+                </h4>
+
                 <p style="color:#555; line-height:1.8;"
-                   th:text="${property.description}">Description here</p>
+                   th:text="${property.description}">
+                    Description here
+                </p>
+
             </div>
+
 
             <!-- Google Maps -->
             <div class="detail-card">
-                <h4><i class="fas fa-map" style="color:#4361ee"></i> Location on Map</h4>
+
+                <h4>
+                    <i class="fas fa-map"
+                       style="color:#4361ee"></i>
+                    Location on Map
+                </h4>
+
                 <div class="map-container">
+
                     <iframe
                             th:src="'https://maps.google.com/maps?q=' + ${property.location} + '&output=embed'"
                             width="100%"
@@ -276,114 +446,202 @@
                             allowfullscreen=""
                             loading="lazy">
                     </iframe>
+
                 </div>
-                <p class="mt-2 text-muted" style="font-size:0.85rem;">
+
+                <p class="mt-2 text-muted"
+                   style="font-size:0.85rem;">
+
                     <i class="fas fa-info-circle"></i>
+
                     Map shows approximate location of
-                    <strong th:text="${property.location}"></strong>
+
+                    <strong th:text="${property.location}">
+                    </strong>
+
                 </p>
+
             </div>
 
         </div>
+
 
         <!-- Right Column -->
         <div class="col-md-4">
 
+
             <!-- Rent Display -->
             <div class="rent-display">
-                <div class="label">Monthly Rent</div>
-                <div class="amount">₹<span th:text="${property.rent}">0</span></div>
-                <div class="label">per month</div>
+
+                <div class="label">
+                    Monthly Rent
+                </div>
+
+                <div class="amount">
+                    ₹<span th:text="${property.rent}">0</span>
+                </div>
+
+                <div class="label">
+                    per month
+                </div>
+
             </div>
 
-            <!-- Contact Card -->
+
+            <!-- Contact Owner Card -->
             <div class="contact-card">
-                <h5><i class="fas fa-address-card"></i> Contact Owner</h5>
-                <p style="color:#777; margin-bottom:15px;">
-                    <strong th:text="${property.ownerName}">Owner Name</strong>
+
+                <h5>
+                    <i class="fas fa-address-card"></i>
+                    Contact Owner
+                </h5>
+
+
+                <!-- Owner Name -->
+                <p class="owner-name">
+
+                    <i class="fas fa-user"></i>
+
+                    <span th:text="${property.ownerName}">
+                        Owner Name
+                    </span>
+
                 </p>
 
-                <form th:action="@{/contact-request}" method="post">
 
-                    <input type="hidden"
-                           name="propertyId"
-                           th:value="${property.id}">
+                <!-- Owner Phone Number -->
+                <p class="owner-phone">
 
-                    <div class="mb-3">
-                        <input type="text"
-                               name="studentName"
-                               class="form-control"
-                               placeholder="Enter Your Name"
-                               required>
-                    </div>
+                    <i class="fas fa-phone"></i>
 
-                    <div class="mb-3">
-                        <input type="text"
-                               name="studentPhone"
-                               class="form-control"
-                               placeholder="Enter Phone Number"
-                               required>
-                    </div>
+                    <span th:text="${property.contactNumber}">
+                        9876543210
+                    </span>
 
-                    <div class="mb-3">
-                        <input type="email"
-                               name="studentEmail"
-                               class="form-control"
-                               placeholder="Enter Email (Optional)">
-                    </div>
+                </p>
 
-                    <div class="mb-3">
-        <textarea name="message"
-                  class="form-control"
-                  rows="4"
-                  placeholder="Write your message"></textarea>
-                    </div>
 
-                    <button type="submit"
-                            class="btn btn-primary w-100">
-                        📩 Request Contact
-                    </button>
+                <!-- Call Button -->
+                <a th:href="'tel:' + ${property.contactNumber}"
+                   class="btn-call">
 
-                </form>
+                    <i class="fas fa-phone"></i>
+
+                    Call Now
+
+                </a>
+
+
+                <!-- WhatsApp Button -->
+                <a th:href="'https://wa.me/91' + ${property.contactNumber}
+                           + '?text=Hi, I am interested in your property: '
+                           + ${property.title}"
+                   target="_blank"
+                   class="btn-whatsapp">
+
+                    <i class="fab fa-whatsapp"></i>
+
+                    WhatsApp Owner
+
+                </a>
+
             </div>
+
 
             <!-- Quick Info Card -->
             <div class="detail-card">
-                <h4><i class="fas fa-bolt" style="color:#4361ee"></i> Quick Info</h4>
+
+                <h4>
+                    <i class="fas fa-bolt"
+                       style="color:#4361ee"></i>
+                    Quick Info
+                </h4>
+
+
                 <div class="info-row">
+
                     <i class="fas fa-rupee-sign"></i>
-                    <span class="info-label">Rent</span>
-                    <span class="info-value">₹<span th:text="${property.rent}"></span>/mo</span>
+
+                    <span class="info-label">
+                        Rent
+                    </span>
+
+                    <span class="info-value">
+                        ₹<span th:text="${property.rent}"></span>/mo
+                    </span>
+
                 </div>
+
+
                 <div class="info-row">
+
                     <i class="fas fa-door-open"></i>
-                    <span class="info-label">Rooms</span>
-                    <span class="info-value" th:text="${property.rooms}"></span>
+
+                    <span class="info-label">
+                        Rooms
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${property.rooms}">
+                    </span>
+
                 </div>
+
+
                 <div class="info-row">
+
                     <i class="fas fa-home"></i>
-                    <span class="info-label">Type</span>
-                    <span class="info-value" th:text="${property.type}"></span>
+
+                    <span class="info-label">
+                        Type
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${property.type}">
+                    </span>
+
                 </div>
+
             </div>
+
 
             <!-- Back Button -->
             <div class="text-center">
-                <a href="/home" class="btn-back">
-                    <i class="fas fa-arrow-left"></i> Back to All Properties
+
+                <a href="/home"
+                   class="btn-back">
+
+                    <i class="fas fa-arrow-left"></i>
+
+                    Back to All Properties
+
                 </a>
+
             </div>
 
         </div>
+
     </div>
+
 </div>
+
 
 <!-- Footer -->
 <div class="footer">
-    <h5>🏠 PGFlatFinder</h5>
-    <p>Built with ❤️ using Spring Boot + MySQL + Bootstrap</p>
+
+    <h5>
+        🏠 PGFlatFinder
+    </h5>
+
+    <p>
+        Built with ❤️ using Spring Boot + MySQL + Bootstrap
+    </p>
+
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
 </body>
 </html>
