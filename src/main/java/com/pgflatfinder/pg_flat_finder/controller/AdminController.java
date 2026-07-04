@@ -1,19 +1,23 @@
 package com.pgflatfinder.pg_flat_finder.controller;
 
+import com.pgflatfinder.pg_flat_finder.entity.Property;
 import com.pgflatfinder.pg_flat_finder.repository.PropertyRepository;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.pgflatfinder.pg_flat_finder.entity.Property;
 
 @Controller
-@RequiredArgsConstructor
 public class AdminController {
 
     private final PropertyRepository propertyRepository;
+
+    // Explicit constructor for dependency injection
+    public AdminController(PropertyRepository propertyRepository) {
+        this.propertyRepository = propertyRepository;
+    }
 
     @GetMapping("/admin/dashboard")
     public String adminDashboard(Model model) {
@@ -24,6 +28,7 @@ public class AdminController {
 
         return "admin-dashboard";
     }
+
     @GetMapping("/admin/properties/add")
     public String showAddPropertyForm(Model model) {
 
@@ -31,6 +36,7 @@ public class AdminController {
 
         return "admin-add-property";
     }
+
     @PostMapping("/admin/properties/add")
     public String saveProperty(Property property) {
 
@@ -38,6 +44,7 @@ public class AdminController {
 
         return "redirect:/admin/dashboard";
     }
+
     @GetMapping("/admin/properties")
     public String manageProperties(Model model) {
 
@@ -48,23 +55,31 @@ public class AdminController {
 
         return "admin-properties";
     }
+
     @GetMapping("/admin/properties/edit/{id}")
     public String showEditPropertyForm(@PathVariable Long id, Model model) {
 
         Property property = propertyRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Property not found with id: " + id));
+                        new RuntimeException(
+                                "Property not found with id: " + id
+                        ));
 
         model.addAttribute("property", property);
 
         return "admin-edit-property";
     }
+
     @PostMapping("/admin/properties/edit/{id}")
-    public String updateProperty(@PathVariable Long id, Property property) {
+    public String updateProperty(
+            @PathVariable Long id,
+            Property property) {
 
         Property existingProperty = propertyRepository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Property not found with id: " + id));
+                        new RuntimeException(
+                                "Property not found with id: " + id
+                        ));
 
         existingProperty.setTitle(property.getTitle());
         existingProperty.setType(property.getType());
@@ -83,6 +98,7 @@ public class AdminController {
 
         return "redirect:/admin/properties";
     }
+
     @GetMapping("/admin/properties/delete/{id}")
     public String deleteProperty(@PathVariable Long id) {
 
