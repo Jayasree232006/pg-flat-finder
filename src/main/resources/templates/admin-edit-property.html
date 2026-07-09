@@ -63,6 +63,22 @@
             padding: 11px 14px;
         }
 
+        .current-image {
+            width: 100%;
+            max-width: 350px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 2px solid #e5e7eb;
+            margin-top: 10px;
+        }
+
+        .image-box {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
         .btn-save {
             background: #4361ee;
             color: white;
@@ -119,7 +135,8 @@
 
         <form th:action="@{/admin/properties/edit/{id}(id=${property.id})}"
               th:object="${property}"
-              method="post">
+              method="post"
+              enctype="multipart/form-data">
 
             <div class="row g-3">
 
@@ -145,17 +162,9 @@
                             class="form-select"
                             required>
 
-                        <option value="">
-                            Select Type
-                        </option>
-
-                        <option value="PG">
-                            PG
-                        </option>
-
-                        <option value="Flat">
-                            Flat
-                        </option>
+                        <option value="">Select Type</option>
+                        <option value="PG">PG</option>
+                        <option value="Flat">Flat</option>
 
                     </select>
                 </div>
@@ -170,21 +179,10 @@
                             class="form-select"
                             required>
 
-                        <option value="">
-                            Select Gender
-                        </option>
-
-                        <option value="Boys">
-                            Boys
-                        </option>
-
-                        <option value="Girls">
-                            Girls
-                        </option>
-
-                        <option value="Any">
-                            Any
-                        </option>
+                        <option value="">Select Gender</option>
+                        <option value="Boys">Boys</option>
+                        <option value="Girls">Girls</option>
+                        <option value="Any">Any</option>
 
                     </select>
                 </div>
@@ -286,8 +284,104 @@
 
                     <textarea th:field="*{description}"
                               class="form-control"
-                              rows="5">
-                    </textarea>
+                              rows="5"></textarea>
+                </div>
+                <!-- Food Available -->
+                <div class="col-md-12">
+
+                    <div class="form-check">
+
+                        <input type="checkbox"
+                               th:field="*{foodAvailable}"
+                               class="form-check-input"
+                               id="foodAvailable">
+
+                        <label class="form-check-label"
+                               for="foodAvailable">
+                            Food is available for this property
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Weekly Food Menu -->
+                <div class="col-md-12">
+
+                    <label class="form-label">
+                        Weekly Food Menu
+                    </label>
+
+                    <textarea th:field="*{foodMenu}"
+                              class="form-control"
+                              rows="7"
+                              placeholder="Example:
+Monday: Idli | Rice + Dal | Chapati + Curry
+Tuesday: Dosa | Sambar Rice | Rice + Curry
+Wednesday: Upma | Rice + Dal | Chapati
+Thursday: Pongal | Veg Biryani | Rice + Curry
+Friday: Dosa | Rice + Sambar | Chapati
+Saturday: Poori | Fried Rice | Rice + Dal
+Sunday: Special Breakfast | Biryani | Light Dinner"></textarea>
+
+                    <small class="text-muted">
+                        Enter Breakfast | Lunch | Dinner for each day.
+                    </small>
+
+                </div>
+                <!-- Amenities -->
+                <div class="col-md-12">
+
+                    <label class="form-label">
+                        Amenities
+                    </label>
+
+                    <textarea th:field="*{amenities}"
+                              class="form-control"
+                              rows="3"
+                              placeholder="Example: WiFi, Parking, AC, Attached Bathroom, Laundry, CCTV, Power Backup, Study Table">
+    </textarea>
+
+                    <small class="text-muted">
+                        Enter amenities separated by commas.
+                    </small>
+
+                </div>
+
+                <!-- Current Property Image -->
+                <div class="col-md-12"
+                     th:if="${property.imageName != null and !property.imageName.isEmpty()}">
+
+                    <div class="image-box">
+
+                        <label class="form-label">
+                            Current Property Image
+                        </label>
+
+                        <div>
+                            <img th:src="@{'/uploads/properties/' + ${property.imageName}}"
+                                 alt="Current Property Image"
+                                 class="current-image">
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Upload New Image -->
+                <div class="col-md-12">
+                    <label class="form-label">
+                        Change Property Image
+                    </label>
+
+                    <input type="file"
+                           name="imageFile"
+                           class="form-control"
+                           accept="image/*">
+
+                    <small class="text-muted">
+                        Leave this empty to keep the current image.
+                    </small>
                 </div>
 
                 <!-- Available -->

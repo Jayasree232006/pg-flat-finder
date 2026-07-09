@@ -3,36 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>PG Flat Finder</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          rel="stylesheet">
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+        }
 
         /* Navbar */
         .navbar {
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             padding: 15px 30px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
         }
+
         .navbar-brand {
             font-size: 1.8rem;
             font-weight: 800;
             color: white !important;
             letter-spacing: 1px;
         }
-        .navbar-brand span { color: #4cc9f0; }
+
+        .navbar-brand span {
+            color: #4cc9f0;
+        }
 
         /* Hero */
         .hero {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+            background: linear-gradient(
+                    135deg,
+                    #1a1a2e 0%,
+                    #16213e 40%,
+                    #0f3460 100%
+            );
             padding: 80px 20px;
             text-align: center;
             color: white;
             position: relative;
             overflow: hidden;
         }
+
         .hero::before {
             content: '';
             position: absolute;
@@ -40,20 +64,35 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(76,201,240,0.1) 0%, transparent 60%);
+            background: radial-gradient(
+                    circle,
+                    rgba(76, 201, 240, 0.1) 0%,
+                    transparent 60%
+            );
             animation: pulse 4s ease-in-out infinite;
         }
+
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
+
         .hero h1 {
             font-size: 3rem;
             font-weight: 800;
             margin-bottom: 15px;
             position: relative;
         }
-        .hero h1 span { color: #4cc9f0; }
+
+        .hero h1 span {
+            color: #4cc9f0;
+        }
+
         .hero p {
             font-size: 1.2rem;
             color: #a8b2d8;
@@ -70,16 +109,19 @@
             align-items: center;
             max-width: 600px;
             margin: 0 auto;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             position: relative;
         }
+
         .search-container input {
             border: none;
             outline: none;
             font-size: 1rem;
             flex: 1;
+            min-width: 0;
             color: #333;
         }
+
         .search-container button {
             background: linear-gradient(135deg, #4cc9f0, #4361ee);
             border: none;
@@ -89,23 +131,44 @@
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.2s;
+            white-space: nowrap;
         }
-        .search-container button:hover { transform: scale(1.05); }
+
+        .search-container button:hover {
+            transform: scale(1.05);
+        }
 
         /* Stats */
         .stats {
             background: white;
             padding: 20px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
-        .stat-item { display: inline-block; margin: 0 30px; }
-        .stat-number { font-size: 2rem; font-weight: 800; color: #4361ee; }
-        .stat-label { color: #666; font-size: 0.9rem; }
+
+        .stat-item {
+            display: inline-block;
+            margin: 0 30px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #4361ee;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
 
         /* Filter Buttons */
-        .filter-section { padding: 30px 0 10px; }
+        .filter-section {
+            padding: 30px 0 10px;
+        }
+
         .filter-btn {
+            display: inline-block;
             border: 2px solid #4361ee;
             color: #4361ee;
             background: white;
@@ -114,9 +177,12 @@
             margin: 5px;
             cursor: pointer;
             font-weight: 600;
+            text-decoration: none;
             transition: all 0.3s;
         }
-        .filter-btn:hover, .filter-btn.active {
+
+        .filter-btn:hover,
+        .filter-btn.active {
             background: #4361ee;
             color: white;
         }
@@ -125,28 +191,71 @@
         .card {
             border: none;
             border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             overflow: hidden;
             height: 100%;
+            background: white;
         }
+
         .card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
+
+        /* Property Image */
+        .property-image-wrapper {
+            width: 100%;
+            height: 220px;
+            background: #e9ecef;
+            overflow: hidden;
+        }
+
+        .property-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .property-image {
+            transform: scale(1.05);
+        }
+
+        .no-image-placeholder {
+            width: 100%;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: linear-gradient(135deg, #e9ecef, #dee2e6);
+            color: #777;
+        }
+
+        .no-image-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #aaa;
+        }
+
+        /* Card Header */
         .card-header-custom {
             background: linear-gradient(135deg, #4361ee, #4cc9f0);
             padding: 20px;
             color: white;
         }
+
         .card-header-custom h5 {
             font-weight: 700;
             font-size: 1.1rem;
             margin: 0;
+            overflow-wrap: anywhere;
         }
-        .card-body { padding: 20px; }
+
         .badge-available {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             border-radius: 50px;
             padding: 4px 12px;
@@ -154,8 +263,9 @@
             margin-bottom: 8px;
             display: inline-block;
         }
+
         .badge-unavailable {
-            background: rgba(255,0,0,0.2);
+            background: rgba(255, 0, 0, 0.2);
             color: white;
             border-radius: 50px;
             padding: 4px 12px;
@@ -163,8 +273,9 @@
             margin-bottom: 8px;
             display: inline-block;
         }
+
         .property-type {
-            background: rgba(255,255,255,0.15);
+            background: rgba(255, 255, 255, 0.15);
             color: white;
             border-radius: 50px;
             padding: 4px 12px;
@@ -172,18 +283,12 @@
             display: inline-block;
             margin-left: 5px;
         }
-        .info-row {
-            display: flex;
-            align-items: center;
-            margin: 8px 0;
-            color: #555;
-            font-size: 0.9rem;
+
+        /* Card Body */
+        .card-body {
+            padding: 20px;
         }
-        .info-row i {
-            width: 20px;
-            color: #4361ee;
-            margin-right: 8px;
-        }
+
         .rent-badge {
             background: linear-gradient(135deg, #4361ee, #4cc9f0);
             color: white;
@@ -193,12 +298,55 @@
             font-size: 1.1rem;
             display: inline-block;
             margin: 10px 0;
+            max-width: 100%;
+            overflow-wrap: anywhere;
         }
+
         .description-text {
             color: #777;
             font-size: 0.85rem;
             margin: 10px 0;
             line-height: 1.5;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+
+            min-height: 3.9em;
+        }
+        .info-row {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            color: #555;
+            font-size: 0.9rem;
+            min-width: 0;
+        }
+
+        .info-row i {
+            width: 20px;
+            color: #4361ee;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        .info-row span {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        /* No Properties */
+        .no-properties {
+            text-align: center;
+            padding: 60px;
+            color: #888;
+        }
+
+        .no-properties i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
         }
 
         /* Footer */
@@ -210,151 +358,445 @@
             margin-top: 60px;
         }
 
-        /* No properties message */
-        .no-properties {
-            text-align: center;
-            padding: 60px;
-            color: #888;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 55px 15px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .search-container {
+                padding-left: 15px;
+            }
+
+            .search-container button {
+                padding: 10px 15px;
+            }
+
+            .stat-item {
+                display: block;
+                margin: 15px 0;
+            }
+
+            .property-image-wrapper,
+            .no-image-placeholder {
+                height: 200px;
+            }
         }
-        .no-properties i { font-size: 4rem; color: #ddd; margin-bottom: 20px; }
     </style>
 </head>
+
 <body>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg">
     <div class="container">
+
         <a class="navbar-brand" href="/home">
             🏠 PG<span>Flat</span>Finder
         </a>
+
         <div class="ms-auto">
-            <a href="/home" class="btn btn-outline-light btn-sm me-2">
-                <i class="fas fa-home"></i> Home
+            <a href="/home"
+               class="btn btn-outline-light btn-sm me-2">
+                <i class="fas fa-home"></i>
+                Home
             </a>
         </div>
+
     </div>
 </nav>
 
+
 <!-- Hero Section -->
 <div class="hero">
-    <h1>Find Your Perfect <span>PG or Flat</span></h1>
-    <p>Affordable accommodations near your college — verified and trusted</p>
+
+    <h1>
+        Find Your Perfect
+        <span>PG or Flat</span>
+    </h1>
+
+    <p>
+        Affordable accommodations near your college —
+        verified and trusted
+    </p>
 
     <!-- Search Bar -->
-    <form th:action="@{/home}" method="get" class="search-container">
-        <i class="fas fa-search" style="color:#999; margin-right:10px;"></i>
-        <input type="text" name="location"
+    <form th:action="@{/home}"
+          method="get"
+          class="search-container">
+
+        <i class="fas fa-search"
+           style="color:#999; margin-right:10px;">
+        </i>
+
+        <input type="text"
+               name="location"
                th:value="${searchLocation}"
-               placeholder="Search by location (e.g. Bangalore, Mumbai...)"/>
+               placeholder="Search by location (e.g. Bangalore, Mumbai...)">
+
         <button type="submit">
-            <i class="fas fa-search"></i> Search
+            <i class="fas fa-search"></i>
+            Search
+        </button>
+        <!-- Filter Button -->
+        <button type="button"
+                class="btn btn-outline-primary"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#filterPanel"
+                aria-controls="filterPanel">
+
+            <i class="fas fa-filter"></i>
+            Filter
+
         </button>
     </form>
+    <!-- Filter Offcanvas Panel -->
+    <div class="offcanvas offcanvas-end"
+         tabindex="-1"
+         id="filterPanel"
+         aria-labelledby="filterPanelLabel">
+
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title"
+                id="filterPanelLabel">
+                <i class="fas fa-filter"></i>
+                Advanced Filters
+            </h5>
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="offcanvas">
+            </button>
+        </div>
+
+        <div class="offcanvas-body">
+
+            <form action="/home" method="get">
+
+                <!-- Minimum Rent -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Minimum Rent
+                    </label>
+
+                    <input type="number"
+                           name="minRent"
+                           class="form-control"
+                           placeholder="₹3000"
+                           min="0"
+                           th:value="${minRent}">
+                </div>
+
+                <!-- Maximum Rent -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Maximum Rent
+                    </label>
+
+                    <input type="number"
+                           name="maxRent"
+                           class="form-control"
+                           placeholder="₹7000"
+                           min="0"
+                           th:value="${maxRent}">
+                </div>
+                <!-- Gender Preference -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        Gender Preference
+                    </label>
+
+                    <select name="gender"
+                            class="form-select">
+
+                        <option value="">
+                            Any
+                        </option>
+
+                        <option value="Boys">
+                            Boys
+                        </option>
+
+                        <option value="Girls">
+                            Girls
+                        </option>
+
+                    </select>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary w-100">
+                    <i class="fas fa-check"></i>
+                    Apply Filters
+                </button>
+                <a href="/home"
+                   class="btn btn-outline-secondary w-100 mt-2">
+                    <i class="fas fa-rotate-left"></i>
+                    Clear Filters
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
 </div>
+
 
 <!-- Stats Section -->
 <div class="stats">
+
     <div class="stat-item">
-        <div class="stat-number" th:text="${properties.size()}">0</div>
-        <div class="stat-label">Properties Listed</div>
+        <div class="stat-number"
+             th:text="${properties.size()}">
+            0
+        </div>
+
+        <div class="stat-label">
+            Properties Listed
+        </div>
     </div>
+
     <div class="stat-item">
-        <div class="stat-number">3+</div>
-        <div class="stat-label">Cities Covered</div>
+        <div class="stat-number">
+            3+
+        </div>
+
+        <div class="stat-label">
+            Cities Covered
+        </div>
     </div>
+
     <div class="stat-item">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">Verified Listings</div>
+        <div class="stat-number">
+            100%
+        </div>
+
+        <div class="stat-label">
+            Verified Listings
+        </div>
     </div>
+
 </div>
+
 
 <!-- Filter + Properties Section -->
 <div class="container">
+
+    <!-- Filters -->
     <div class="filter-section text-center">
-        <a href="/home" class="filter-btn active">All</a>
-        <a href="/home?type=PG" class="filter-btn">🏠 PG</a>
-        <a href="/home?type=Flat" class="filter-btn">🏢 Flat</a>
-        <a href="/home?type=Hostel" class="filter-btn">🏨 Hostel</a>
+
+        <a href="/home"
+           class="filter-btn active">
+            All
+        </a>
+
+        <a href="/home?type=PG"
+           class="filter-btn">
+            🏠 PG
+        </a>
+
+        <a href="/home?type=Flat"
+           class="filter-btn">
+            🏢 Flat
+        </a>
+
     </div>
 
-    <h4 class="fw-bold my-4" style="color:#1a1a2e;">
+
+    <!-- Heading -->
+    <h4 class="fw-bold my-4"
+        style="color:#1a1a2e;">
+
         <i class="fas fa-list"></i>
+
         Available Properties
+
         <span class="badge bg-primary ms-2"
-              th:text="${properties.size()}">0</span>
+              th:text="${properties.size()}">
+            0
+        </span>
+
     </h4>
+
 
     <!-- Property Cards -->
     <div class="row g-4 mb-5">
-        <!-- No properties message -->
+
+        <!-- No Properties Message -->
         <div class="col-12 no-properties"
              th:if="${properties.isEmpty()}">
+
             <i class="fas fa-home"></i>
-            <h4>No properties found</h4>
-            <p>Try searching a different location</p>
+
+            <h4>
+                No properties found
+            </h4>
+
+            <p>
+                Try searching a different location
+            </p>
+
         </div>
 
+
         <!-- Property Card -->
-        <div class="col-md-4" th:each="property : ${properties}">
+        <div class="col-lg-4 col-md-6"
+             th:each="property : ${properties}">
+
             <div class="card">
+
+                <!-- Property Image -->
+                <div class="property-image-wrapper">
+
+                    <img th:if="${property.imageName != null and !property.imageName.isEmpty()}"
+                         th:src="@{'/uploads/properties/' + ${property.imageName}}"
+                         th:alt="${property.title}"
+                         class="property-image">
+
+                    <!-- No Image Placeholder -->
+                    <div th:unless="${property.imageName != null and !property.imageName.isEmpty()}"
+                         class="no-image-placeholder">
+
+                        <i class="fas fa-image"></i>
+
+                        <span>
+                            No Image Available
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Card Header -->
                 <div class="card-header-custom">
+
                     <span class="badge-available"
                           th:if="${property.available}">
                         ✅ Available
                     </span>
+
                     <span class="badge-unavailable"
                           th:unless="${property.available}">
                         ❌ Not Available
                     </span>
+
                     <span class="property-type"
-                          th:text="${property.type}">PG</span>
-                    <h5 class="mt-2" th:text="${property.title}">Title</h5>
+                          th:text="${property.type}">
+                        PG
+                    </span>
+
+                    <h5 class="mt-2"
+                        th:text="${property.title}">
+                        Property Title
+                    </h5>
+
                 </div>
+
+
+                <!-- Card Body -->
                 <div class="card-body">
+
+                    <!-- Rent -->
                     <div class="rent-badge">
                         ₹<span th:text="${property.rent}">0</span>/month
                     </div>
 
-                    <p class="description-text"
-                       th:text="${property.description}">Description</p>
 
+                    <!-- Description -->
+                    <p class="description-text"
+                       th:text="${property.description}">
+                        Property Description
+                    </p>
+
+
+                    <!-- Location -->
                     <div class="info-row">
+
                         <i class="fas fa-map-marker-alt"></i>
-                        <span th:text="${property.location}">Location</span>
+
+                        <span th:text="${property.location}">
+                            Location
+                        </span>
+
                     </div>
+
+
+                    <!-- Rooms -->
                     <div class="info-row">
+
                         <i class="fas fa-door-open"></i>
-                        <span th:text="${property.rooms} + ' Room(s)'">Rooms</span>
+
+                        <span th:text="${property.rooms} + ' Room(s)'">
+                            Rooms
+                        </span>
+
                     </div>
+                    <!-- Gender Category -->
                     <div class="info-row">
-                        <i class="fas fa-user"></i>
-                        <span th:text="${property.ownerName}">Owner</span>
+
+                        <i class="fas fa-users"></i>
+
+                        <span th:text="${property.gender}">
+        Any
+    </span>
+
                     </div>
-                    <div class="info-row">
-                        <i class="fas fa-phone"></i>
-                        <span th:text="${property.contactNumber}">Contact</span>
-                    </div>
+
+
+                    <!-- View Details -->
                     <div class="mt-3">
+
                         <a th:href="@{/property/{id}(id=${property.id})}"
                            class="btn btn-primary w-100">
-                            <i class="fas fa-eye"></i> View Details
+
+                            <i class="fas fa-eye"></i>
+                            View Details
+
                         </a>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </div>
+
 
 <!-- Footer -->
 <div class="footer">
-    <h5>🏠 PGFlatFinder</h5>
-    <p>Helping students find their perfect home away from home</p>
+
+    <h5>
+        🏠 PGFlatFinder
+    </h5>
+
+    <p>
+        Helping students find their perfect home away from home
+    </p>
+
     <p style="margin-top:10px; font-size:0.8rem;">
         Built with ❤️ using Spring Boot + MySQL + Bootstrap
     </p>
+
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
 </body>
 </html>

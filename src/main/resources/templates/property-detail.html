@@ -26,6 +26,7 @@
             background: #f0f2f5;
         }
 
+        /* Navbar */
         .navbar {
             background: linear-gradient(135deg, #1a1a2e, #16213e);
             padding: 15px 30px;
@@ -35,12 +36,14 @@
             font-size: 1.8rem;
             font-weight: 800;
             color: white !important;
+            text-decoration: none;
         }
 
         .navbar-brand span {
             color: #4cc9f0;
         }
 
+        /* Hero Banner */
         .hero-banner {
             background: linear-gradient(135deg, #1a1a2e, #0f3460);
             padding: 40px 0;
@@ -80,10 +83,54 @@
             margin-left: 8px;
         }
 
+        /* Property Image */
+        .property-image-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .property-main-image {
+            width: 100%;
+            height: 430px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .property-image-card:hover .property-main-image {
+            transform: scale(1.02);
+        }
+
+        .no-image-placeholder {
+            width: 100%;
+            height: 430px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e9ecef, #dee2e6);
+            color: #777;
+        }
+
+        .no-image-placeholder i {
+            font-size: 5rem;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        .no-image-placeholder span {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Detail Card */
         .detail-card {
             background: white;
             border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             padding: 30px;
             margin-bottom: 20px;
         }
@@ -131,8 +178,10 @@
 
         .info-value {
             color: #222;
+            overflow-wrap: anywhere;
         }
 
+        /* Rent */
         .rent-display {
             background: linear-gradient(135deg, #4361ee, #4cc9f0);
             color: white;
@@ -152,10 +201,11 @@
             opacity: 0.9;
         }
 
+        /* Contact */
         .contact-card {
             background: white;
             border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             padding: 25px;
             margin-bottom: 20px;
             text-align: center;
@@ -217,12 +267,14 @@
             color: white;
         }
 
+        /* Map */
         .map-container {
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
+        /* Back Button */
         .btn-back {
             background: transparent;
             color: #4361ee;
@@ -235,17 +287,65 @@
             transition: all 0.3s;
         }
 
+        .navbar .btn-back {
+            color: white;
+            border-color: white;
+        }
+
+        .navbar .btn-back:hover {
+            background: white;
+            color: #1a1a2e;
+        }
+
         .btn-back:hover {
             background: #4361ee;
             color: white;
         }
 
+        /* Footer */
         .footer {
             background: #1a1a2e;
             color: #a8b2d8;
             text-align: center;
             padding: 30px;
             margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px;
+            }
+
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+
+            .navbar .btn-back {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+
+            .hero-banner h1 {
+                font-size: 1.6rem;
+            }
+
+            .property-main-image,
+            .no-image-placeholder {
+                height: 280px;
+            }
+
+            .detail-card {
+                padding: 20px;
+            }
+
+            .info-row {
+                align-items: flex-start;
+            }
+
+            .info-label {
+                width: 90px;
+            }
         }
     </style>
 </head>
@@ -256,7 +356,7 @@
 <nav class="navbar">
     <div class="container d-flex justify-content-between align-items-center">
 
-        <a class="navbar-brand" href="/">
+        <a class="navbar-brand" href="/home">
             🏠 PG<span>Flat</span>Finder
         </a>
 
@@ -313,10 +413,32 @@
 <!-- Main Content -->
 <div class="container mt-4">
 
-    <div class="row">
+    <div class="row g-4">
 
         <!-- Left Column -->
         <div class="col-md-8">
+
+
+            <!-- Property Image -->
+            <div class="property-image-card">
+
+                <img th:if="${property.imageName != null and !property.imageName.isEmpty()}"
+                     th:src="@{'/uploads/properties/' + ${property.imageName}}"
+                     th:alt="${property.title}"
+                     class="property-main-image">
+
+                <div th:unless="${property.imageName != null and !property.imageName.isEmpty()}"
+                     class="no-image-placeholder">
+
+                    <i class="fas fa-image"></i>
+
+                    <span>
+                        No Property Image Available
+                    </span>
+
+                </div>
+
+            </div>
 
 
             <!-- Property Details -->
@@ -345,6 +467,23 @@
                 </div>
 
 
+                <!-- Gender -->
+                <div class="info-row">
+
+                    <i class="fas fa-users"></i>
+
+                    <span class="info-label">
+                        Gender
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${property.gender}">
+                        Any
+                    </span>
+
+                </div>
+
+
                 <div class="info-row">
 
                     <i class="fas fa-map-marker-alt"></i>
@@ -361,6 +500,23 @@
                 </div>
 
 
+                <!-- Full Address -->
+                <div class="info-row">
+
+                    <i class="fas fa-location-dot"></i>
+
+                    <span class="info-label">
+                        Address
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${property.address}">
+                        Full Address
+                    </span>
+
+                </div>
+
+
                 <div class="info-row">
 
                     <i class="fas fa-door-open"></i>
@@ -371,7 +527,7 @@
 
                     <span class="info-value"
                           th:text="${property.rooms} + ' Room(s)'">
-                        1
+                        1 Room
                     </span>
 
                 </div>
@@ -403,6 +559,7 @@
 
                     <span class="info-value"
                           th:text="${property.available} ? 'Available' : 'Not Available'">
+                        Available
                     </span>
 
                 </div>
@@ -425,7 +582,81 @@
                 </p>
 
             </div>
+            <!-- Amenities -->
+            <div class="detail-card"
+                 th:if="${property.amenities != null and !property.amenities.isBlank()}">
 
+                <h4>
+                    <i class="fas fa-star"
+                       style="color:#4361ee"></i>
+                    Amenities
+                </h4>
+
+                <div class="d-flex flex-wrap gap-2">
+
+        <span th:each="amenity : ${#strings.listSplit(property.amenities, ',')}"
+              class="badge rounded-pill bg-light text-dark border p-2">
+
+            <i class="fas fa-check-circle text-success"></i>
+
+            <span th:text="${#strings.trim(amenity)}">
+                Amenity
+            </span>
+
+        </span>
+
+                </div>
+
+            </div>
+            <!-- Weekly Food Menu -->
+            <div class="detail-card"
+                 th:if="${property.foodAvailable and property.foodMenu != null}">
+
+                <h4>
+                    <i class="fas fa-utensils"
+                       style="color:#4361ee"></i>
+                    Weekly Food Menu
+                </h4>
+
+                <div class="mb-3">
+        <span class="badge bg-success">
+            <i class="fas fa-check-circle"></i>
+            Food Available
+        </span>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+
+                        <thead class="table-light">
+                        <tr>
+                            <th>Day</th>
+                            <th>Breakfast</th>
+                            <th>Lunch</th>
+                            <th>Dinner</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        <tr th:each="row : ${foodMenuRows}">
+
+                            <td th:text="${row[0]}">Day</td>
+
+                            <td th:text="${row[1]}">Breakfast</td>
+
+                            <td th:text="${row[2]}">Lunch</td>
+
+                            <td th:text="${row[3]}">Dinner</td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </div>
 
             <!-- Google Maps -->
             <div class="detail-card">
@@ -457,9 +688,23 @@
                     Map shows approximate location of
 
                     <strong th:text="${property.location}">
+                        Location
                     </strong>
 
                 </p>
+
+
+                <!-- Open Saved Google Maps Link -->
+                <a th:if="${property.googleMapsLink != null and !property.googleMapsLink.isEmpty()}"
+                   th:href="${property.googleMapsLink}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn btn-primary mt-2">
+
+                    <i class="fas fa-map-location-dot"></i>
+                    Open Exact Location in Google Maps
+
+                </a>
 
             </div>
 
@@ -497,7 +742,6 @@
                 </h5>
 
 
-                <!-- Owner Name -->
                 <p class="owner-name">
 
                     <i class="fas fa-user"></i>
@@ -509,7 +753,6 @@
                 </p>
 
 
-                <!-- Owner Phone Number -->
                 <p class="owner-phone">
 
                     <i class="fas fa-phone"></i>
@@ -526,7 +769,6 @@
                    class="btn-call">
 
                     <i class="fas fa-phone"></i>
-
                     Call Now
 
                 </a>
@@ -537,10 +779,10 @@
                            + '?text=Hi, I am interested in your property: '
                            + ${property.title}"
                    target="_blank"
+                   rel="noopener noreferrer"
                    class="btn-whatsapp">
 
                     <i class="fab fa-whatsapp"></i>
-
                     WhatsApp Owner
 
                 </a>
@@ -548,7 +790,7 @@
             </div>
 
 
-            <!-- Quick Info Card -->
+            <!-- Quick Info -->
             <div class="detail-card">
 
                 <h4>
@@ -567,7 +809,7 @@
                     </span>
 
                     <span class="info-value">
-                        ₹<span th:text="${property.rent}"></span>/mo
+                        ₹<span th:text="${property.rent}">0</span>/mo
                     </span>
 
                 </div>
@@ -583,6 +825,7 @@
 
                     <span class="info-value"
                           th:text="${property.rooms}">
+                        1
                     </span>
 
                 </div>
@@ -598,6 +841,23 @@
 
                     <span class="info-value"
                           th:text="${property.type}">
+                        PG
+                    </span>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <i class="fas fa-users"></i>
+
+                    <span class="info-label">
+                        Gender
+                    </span>
+
+                    <span class="info-value"
+                          th:text="${property.gender}">
+                        Any
                     </span>
 
                 </div>
@@ -612,7 +872,6 @@
                    class="btn-back">
 
                     <i class="fas fa-arrow-left"></i>
-
                     Back to All Properties
 
                 </a>

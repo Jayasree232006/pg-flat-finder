@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Requests - Admin</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f4f6f9;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 15px 0;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 800;
+            font-size: 1.4rem;
+            text-decoration: none;
+        }
+
+        .page-container {
+            padding-top: 40px;
+            padding-bottom: 60px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            color: #1a1a2e;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .page-subtitle {
+            color: #777;
+            margin: 0;
+        }
+
+        .btn-dashboard {
+            background: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-weight: 700;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-dashboard:hover {
+            background: #3046c9;
+            color: white;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+            margin-bottom: 25px;
+        }
+
+        .summary-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #4361ee;
+        }
+
+        .summary-label {
+            color: #777;
+            font-size: 0.95rem;
+        }
+
+        .table-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .table {
+            margin-bottom: 0;
+            vertical-align: middle;
+        }
+
+        .table thead th {
+            background: #1a1a2e;
+            color: white;
+            border: none;
+            padding: 15px;
+            white-space: nowrap;
+        }
+
+        .table tbody td {
+            padding: 15px;
+            color: #444;
+        }
+
+        .student-name {
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .message-text {
+            max-width: 250px;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        .badge-pending {
+            background: #fff3cd;
+            color: #856404;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .badge-completed {
+            background: #d4edda;
+            color: #155724;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .badge-other {
+            background: #e2e3e5;
+            color: #383d41;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 70px 20px;
+            color: #888;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background: #1a1a2e;
+            color: #a8b2d8;
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .table-card {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="container">
+
+        <a class="navbar-brand"
+           href="/admin/dashboard">
+            🏠 PGFlatFinder Admin
+        </a>
+
+    </div>
+</nav>
+
+
+<!-- Main Content -->
+<div class="container page-container">
+
+    <!-- Header -->
+    <div class="page-header">
+
+        <div>
+            <h2 class="page-title">
+                <i class="fas fa-envelope"></i>
+                Contact Requests
+            </h2>
+
+            <p class="page-subtitle">
+                View enquiries submitted by students.
+            </p>
+        </div>
+
+        <a href="/admin/dashboard"
+           class="btn-dashboard">
+
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+
+        </a>
+
+    </div>
+
+
+    <!-- Summary -->
+    <div class="summary-card">
+
+        <div class="summary-number"
+             th:text="${contactRequests.size()}">
+            0
+        </div>
+
+        <div class="summary-label">
+            Total Contact Requests
+        </div>
+
+    </div>
+
+
+    <!-- Requests Table -->
+    <div class="table-card">
+
+        <!-- Empty State -->
+        <div class="empty-state"
+             th:if="${contactRequests.isEmpty()}">
+
+            <i class="fas fa-inbox"></i>
+
+            <h4>
+                No contact requests yet
+            </h4>
+
+            <p>
+                Student enquiries will appear here.
+            </p>
+
+        </div>
+
+
+        <!-- Table -->
+        <div class="table-responsive"
+             th:unless="${contactRequests.isEmpty()}">
+
+            <table class="table table-hover">
+
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Property ID</th>
+                    <th>Message</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="request : ${contactRequests}">
+
+                    <!-- ID -->
+                    <td th:text="${request.id}">
+                        1
+                    </td>
+
+
+                    <!-- Student Name -->
+                    <td>
+                        <span class="student-name"
+                              th:text="${request.studentName}">
+                            Student Name
+                        </span>
+                    </td>
+
+
+                    <!-- Phone -->
+                    <td th:text="${request.studentPhone}">
+                        9876543210
+                    </td>
+
+
+                    <!-- Email -->
+                    <td th:text="${request.studentEmail != null
+                                  and !request.studentEmail.isEmpty()
+                                  ? request.studentEmail
+                                  : '-'}">
+                        -
+                    </td>
+
+
+                    <!-- Property ID -->
+                    <td th:text="${request.propertyId}">
+                        1
+                    </td>
+
+
+                    <!-- Message -->
+                    <td class="message-text"
+                        th:text="${request.message != null
+                                  and !request.message.isEmpty()
+                                  ? request.message
+                                  : '-'}">
+                        Message
+                    </td>
+
+
+                    <!-- Status -->
+                    <td>
+
+                        <span class="badge-pending"
+                              th:if="${request.status == 'PENDING'}">
+                            PENDING
+                        </span>
+
+                        <span class="badge-completed"
+                              th:if="${request.status == 'COMPLETED'}">
+                            COMPLETED
+                        </span>
+
+                        <span class="badge-other"
+                              th:if="${request.status != 'PENDING'
+                                      and request.status != 'COMPLETED'}"
+                              th:text="${request.status}">
+                            STATUS
+                        </span>
+
+                    </td>
+
+
+                    <!-- Created At -->
+                    <td th:text="${request.createdAt != null
+                                  ? #temporals.format(
+                                      request.createdAt,
+                                      'dd-MM-yyyy HH:mm'
+                                    )
+                                  : '-'}">
+                        06-07-2026 17:00
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Footer -->
+<div class="footer">
+
+    <h5>
+        🏠 PGFlatFinder Admin
+    </h5>
+
+    <p>
+        Manage student enquiries securely
+    </p>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+</html>

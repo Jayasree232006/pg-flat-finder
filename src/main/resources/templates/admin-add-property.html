@@ -125,7 +125,8 @@
 
         <form th:action="@{/admin/properties/add}"
               th:object="${property}"
-              method="post">
+              method="post"
+              enctype="multipart/form-data">
 
             <div class="row g-3">
 
@@ -313,6 +314,86 @@
                               rows="5"
                               placeholder="Describe the property">
                     </textarea>
+                </div>
+                <!-- Food Available -->
+                <div class="col-md-12">
+
+                    <div class="form-check">
+
+                        <input type="checkbox"
+                               th:field="*{foodAvailable}"
+                               class="form-check-input"
+                               id="foodAvailable">
+
+                        <label class="form-check-label"
+                               for="foodAvailable">
+                            Food is available for this property
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Weekly Food Menu -->
+                <div class="col-md-12">
+
+                    <label class="form-label">
+                        Weekly Food Menu
+                    </label>
+
+                    <textarea th:field="*{foodMenu}"
+                              class="form-control"
+                              rows="7"
+                              placeholder="Example:
+Monday: Idli | Rice + Dal | Chapati + Curry
+Tuesday: Dosa | Sambar Rice | Rice + Curry
+Wednesday: Upma | Rice + Dal | Chapati
+Thursday: Pongal | Veg Biryani | Rice + Curry
+Friday: Dosa | Rice + Sambar | Chapati
+Saturday: Poori | Fried Rice | Rice + Dal
+Sunday: Special Breakfast | Biryani | Light Dinner">
+    </textarea>
+
+                    <small class="text-muted">
+                        Enter Breakfast | Lunch | Dinner for each day.
+                    </small>
+
+                </div>
+                <!-- Amenities -->
+                <div class="col-md-12">
+
+                    <label class="form-label">
+                        Amenities
+                    </label>
+
+                    <textarea th:field="*{amenities}"
+                              class="form-control"
+                              rows="3"
+                              placeholder="Example: WiFi, Parking, AC, Attached Bathroom, Laundry, CCTV, Power Backup, Study Table">
+    </textarea>
+
+                    <small class="text-muted">
+                        Enter amenities separated by commas.
+                    </small>
+
+                </div>
+
+                <!-- Property Image -->
+                <div class="col-md-12">
+                    <label class="form-label">
+                        Property Image
+                    </label>
+
+                    <input type="file"
+                           name="imageFile"
+                           class="form-control"
+                           accept="image/*"
+                           required>
+
+                    <small class="text-muted">
+                        Upload a photo of the PG or Flat
+                    </small>
                 </div>
 
 

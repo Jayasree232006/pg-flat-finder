@@ -41,9 +41,22 @@ public class Property {
     private String contactNumber;
 
     @Column(nullable = false)
+    private boolean foodAvailable = false;
+
+    @Column(length = 5000)
+    private String foodMenu;
+
+    @Column(length = 2000)
+    private String amenities;
+
+    @Column(nullable = false)
     private String ownerName;
 
     private boolean available = true;
+
+    // Stores uploaded image filename
+    @Column(length = 500)
+    private String imageName;
 
     public Property() {
     }
@@ -150,5 +163,34 @@ public class Property {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+    public boolean isFoodAvailable() {
+        return foodAvailable;
+    }
+
+    public void setFoodAvailable(boolean foodAvailable) {
+        this.foodAvailable = foodAvailable;
+    }
+    public String getFoodMenu() {
+        return foodMenu;
+    }
+
+    public void setFoodMenu(String foodMenu) {
+        this.foodMenu = foodMenu;
+    }
+    public String getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(String amenities) {
+        this.amenities = amenities;
     }
 }
