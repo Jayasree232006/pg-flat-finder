@@ -3,90 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PG Flat Finder - Home</title>
+    <title>PG Flat Finder - Welcome</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; }
+        body { font-family: 'Poppins', sans-serif; background: #0d1526; }
 
         /* Navbar */
         .navbar {
-            background: transparent;
-            padding: 20px 40px;
-            position: absolute;
-            width: 100%;
-            z-index: 10;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            background: #0a0f1e;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
         }
         .navbar-brand {
             font-size: 1.8rem;
-            font-weight: 800;
-            color: white !important;
-        }
-        .navbar-brand span { color: #4cc9f0; }
-        .nav-btns a {
-            color: white;
+            font-weight: 700;
+            color: #ffffff;
             text-decoration: none;
-            margin-left: 20px;
-            font-weight: 600;
-            font-size: 0.95rem;
+            letter-spacing: 0.5px;
         }
-        .nav-btns a:hover { color: #4cc9f0; }
+        .navbar-brand span {
+            color: #4cc9f0;
+        }
+        .nav-btns a {
+            text-decoration: none;
+            color: #e5e9f0;
+            font-weight: 500;
+            margin-left: 20px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .nav-btns a:not(.admin-btn) {
+            border: 1.5px solid rgba(255,255,255,0.25);
+        }
+        .nav-btns a:not(.admin-btn):hover {
+            color: #4cc9f0;
+            border-color: #4cc9f0;
+            background: rgba(76,201,240,0.08);
+        }
 
-        /* Hero Section */
+        /* Hero Section - Welcome Message */
         .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: white;
+            padding: 80px 20px;
+            background: radial-gradient(ellipse at top, #1b2a4a 0%, #0d1526 65%);
             position: relative;
             overflow: hidden;
         }
         .hero::before {
             content: '';
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(76,201,240,0.15), transparent);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(76,201,240,0.12), transparent 70%);
             border-radius: 50%;
-            top: 50%;
+            top: 30%;
             left: 50%;
             transform: translate(-50%, -50%);
             animation: pulse 4s infinite;
         }
         @keyframes pulse {
             0%, 100% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.2); }
+            50% { transform: translate(-50%, -50%) scale(1.15); }
         }
-        .hero-content { position: relative; z-index: 2; }
+        .hero-content { position: relative; z-index: 2; width: 100%; }
         .hero-badge {
-            background: rgba(76,201,240,0.2);
-            border: 1px solid #4cc9f0;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(76,201,240,0.1);
+            border: 1px solid rgba(76,201,240,0.3);
             color: #4cc9f0;
             padding: 8px 20px;
             border-radius: 50px;
             font-size: 0.85rem;
             font-weight: 600;
-            display: inline-block;
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 900;
+            font-size: 3.3rem;
+            font-weight: 800;
+            color: #ffffff;
             line-height: 1.2;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
         .hero h1 span { color: #4cc9f0; }
         .hero p {
-            font-size: 1.2rem;
-            color: #a8b2d8;
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 1.15rem;
+            color: #a9b4cc;
+            max-width: 640px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
         }
         .btn-primary-custom {
             background: linear-gradient(135deg, #4361ee, #4cc9f0);
@@ -109,7 +129,7 @@
         .btn-secondary-custom {
             background: transparent;
             color: white;
-            border: 2px solid white;
+            border: 2px solid rgba(255,255,255,0.3);
             padding: 15px 40px;
             border-radius: 50px;
             font-size: 1.1rem;
@@ -120,25 +140,34 @@
             transition: all 0.3s;
         }
         .btn-secondary-custom:hover {
-            background: white;
-            color: #1a1a2e;
+            background: rgba(255,255,255,0.1);
+            border-color: #4cc9f0;
+            color: white;
         }
 
         /* Features Section */
         .features {
-            padding: 80px 0;
-            background: #f8f9fa;
+            padding: 90px 0;
+            background: #0d1526;
         }
+        .features h2 { color: #ffffff; }
+        .features .text-muted { color: #a9b4cc !important; }
+
         .feature-card {
-            text-align: center;
-            padding: 40px 20px;
+            background: #131d33;
+            border: 1px solid rgba(255,255,255,0.06);
             border-radius: 20px;
-            background: white;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
+            padding: 35px 25px;
+            text-align: center;
             height: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            transition: all .3s ease;
         }
-        .feature-card:hover { transform: translateY(-10px); }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(76,201,240,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+        }
         .feature-icon {
             width: 70px;
             height: 70px;
@@ -154,30 +183,33 @@
         .feature-card h5 {
             font-weight: 700;
             margin-bottom: 10px;
-            color: #1a1a2e;
+            color: #ffffff;
         }
-        .feature-card p { color: #777; font-size: 0.9rem; }
+        .feature-card p { color: #a9b4cc; font-size: 0.9rem; }
 
         /* Stats Section */
         .stats-section {
-            background: linear-gradient(135deg, #4361ee, #4cc9f0);
+            background: linear-gradient(135deg, #1b2a4a, #142038);
             padding: 60px 0;
             color: white;
             text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
         .stat-item { padding: 20px; }
         .stat-number {
             font-size: 3rem;
             font-weight: 900;
             display: block;
+            color: #4cc9f0;
         }
-        .stat-label { font-size: 1rem; opacity: 0.9; }
+        .stat-label { font-size: 1rem; opacity: 0.85; }
 
         /* CTA Section */
         .cta-section {
             padding: 80px 0;
             text-align: center;
-            background: #1a1a2e;
+            background: #0a0f1e;
             color: white;
         }
         .cta-section h2 {
@@ -186,17 +218,34 @@
             margin-bottom: 20px;
         }
         .cta-section p {
-            color: #a8b2d8;
+            color: #a9b4cc;
             margin-bottom: 30px;
             font-size: 1.1rem;
         }
 
         /* Footer */
         .footer {
-            background: #0f0f1a;
-            color: #a8b2d8;
+            background: #060a14;
+            color: #a9b4cc;
             text-align: center;
             padding: 30px;
+        }
+        .admin-btn {
+            background: linear-gradient(135deg, #4361ee, #4cc9f0);
+            color: white !important;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none !important;
+            transition: all 0.3s ease;
+        }
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        @media (max-width: 576px) {
+            .btn-secondary-custom { margin-left: 0; margin-top: 12px; }
         }
     </style>
 </head>
@@ -206,96 +255,71 @@
 <nav class="navbar">
     <div class="container d-flex justify-content-between align-items-center">
         <a class="navbar-brand" href="/">🏠 PG<span>Flat</span>Finder</a>
+
         <div class="nav-btns">
             <a href="/home">Browse Properties</a>
-            <a href="/login">Login</a>
-            <a href="/register"
-               style="background:linear-gradient(135deg,#4361ee,#4cc9f0);
-                      padding:8px 20px; border-radius:50px;">
-                Register
-            </a>
+            <a href="/login" class="admin-btn">Admin Login</a>
         </div>
     </div>
 </nav>
 
-<!-- Hero Section -->
-<div class="hero">
-    <div class="hero-content container">
-        <div class="hero-badge">
-            🏠 #1 PG & Flat Finder for Students
+<!-- Hero Section - Welcome Message -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-house"></i> Trusted PG &amp; Flat Finder</div>
+        <h1>Welcome to <span>PGFlatFinder</span></h1>
+        <p>Your search for a safe, affordable place near college starts here. Verified PGs and flats, real amenities, and direct owner contact — all in one place.</p>
+        <div>
+            <a href="/home" class="btn-primary-custom">Browse Properties</a>
+            <a href="/login" class="btn-secondary-custom">Admin Login</a>
         </div>
-        <h1>Find Your Perfect<br><span>Home Away</span> From Home</h1>
-        <p>Discover affordable PGs, flats and hostels near your college.
-            Verified listings, trusted owners, hassle-free search.</p>
-        <a href="/home" class="btn-primary-custom">
-            <i class="fas fa-search"></i> Browse Properties
-        </a>
-        <a href="/register" class="btn-secondary-custom">
-            Get Started Free
-        </a>
     </div>
-</div>
+</section>
 
 <!-- Features Section -->
 <div class="features">
     <div class="container">
-        <h2 class="text-center fw-bold mb-2" style="color:#1a1a2e;">
-            Why Choose PGFlatFinder?
-        </h2>
-        <p class="text-center text-muted mb-5">
-            Everything you need to find your perfect accommodation
-        </p>
+        <h2 class="text-center fw-bold mb-2">Why Choose PGFlatFinder?</h2>
+        <p class="text-center text-muted mb-5">Everything you need to find your perfect accommodation</p>
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-search"></i></div>
                     <h5>Easy Search</h5>
                     <p>Search properties by location, type and budget in seconds</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
                     <h5>Verified Listings</h5>
                     <p>All properties are verified by our team for your safety</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
                     <h5>Google Maps</h5>
                     <p>View exact property location on Google Maps before visiting</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-phone"></i></div>
                     <h5>Direct Contact</h5>
                     <p>Contact owners directly via call or WhatsApp instantly</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-rupee-sign"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-rupee-sign"></i></div>
                     <h5>Best Prices</h5>
                     <p>Find the most affordable accommodations near your college</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-clock"></i></div>
                     <h5>24/7 Available</h5>
                     <p>Browse properties anytime anywhere from any device</p>
                 </div>
@@ -333,19 +357,15 @@
     <div class="container">
         <h2>Ready to Find Your <span style="color:#4cc9f0;">Perfect PG?</span></h2>
         <p>Join thousands of students who found their home with PGFlatFinder</p>
-        <a href="/home" class="btn-primary-custom">
-            <i class="fas fa-search"></i> Browse Properties Now
-        </a>
+        <a href="/home" class="btn-primary-custom"><i class="fas fa-search"></i> Browse Properties Now</a>
     </div>
 </div>
 
 <!-- Footer -->
 <div class="footer">
-    <h5>🏠 PGFlatFinder</h5>
+    <h5 style="color:#fff;">🏠 PGFlatFinder</h5>
     <p>Helping students find their perfect home away from home</p>
-    <p style="margin-top:10px; font-size:0.8rem;">
-        Built with ❤️ using Spring Boot + MySQL + Bootstrap
-    </p>
+    <p style="margin-top:10px; font-size:0.8rem;">Built with ❤️ using Spring Boot + MySQL + Bootstrap</p>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

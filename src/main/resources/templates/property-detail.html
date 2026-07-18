@@ -14,6 +14,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -22,13 +26,13 @@
         }
 
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: #f0f2f5;
+            font-family: 'Poppins', sans-serif;
+            background: #0d1526;
         }
 
         /* Navbar */
         .navbar {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            background: #0a0f1e;
             padding: 15px 30px;
         }
 
@@ -45,7 +49,7 @@
 
         /* Hero Banner */
         .hero-banner {
-            background: linear-gradient(135deg, #1a1a2e, #0f3460);
+            background: radial-gradient(ellipse at top, #1b2a4a 0%, #0d1526 65%);
             padding: 40px 0;
             color: white;
         }
@@ -74,7 +78,7 @@
         }
 
         .type-badge {
-            background: #4361ee;
+            background: linear-gradient(135deg, #4361ee, #4cc9f0);
             color: white;
             padding: 6px 15px;
             border-radius: 50px;
@@ -85,9 +89,10 @@
 
         /* Property Image */
         .property-image-card {
-            background: white;
+            background: #131d33;
+            border: 1px solid rgba(255,255,255,0.06);
             border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             margin-bottom: 20px;
         }
@@ -111,13 +116,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #e9ecef, #dee2e6);
-            color: #777;
+            background: linear-gradient(135deg, #1b2438, #202c47);
+            color: #a9b4cc;
         }
 
         .no-image-placeholder i {
             font-size: 5rem;
-            color: #aaa;
+            color: #5c6a8a;
             margin-bottom: 15px;
         }
 
@@ -128,26 +133,27 @@
 
         /* Detail Card */
         .detail-card {
-            background: white;
+            background: #131d33;
+            border: 1px solid rgba(255,255,255,0.06);
             border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
             padding: 30px;
             margin-bottom: 20px;
         }
 
         .detail-card h4 {
             font-weight: 700;
-            color: #1a1a2e;
+            color: #ffffff;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #f0f2f5;
+            border-bottom: 2px solid rgba(255,255,255,0.08);
         }
 
         .info-row {
             display: flex;
             align-items: center;
             padding: 12px 0;
-            border-bottom: 1px solid #f0f2f5;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
             font-size: 1rem;
         }
 
@@ -171,13 +177,13 @@
 
         .info-label {
             font-weight: 600;
-            color: #555;
+            color: #a9b4cc;
             width: 120px;
             flex-shrink: 0;
         }
 
         .info-value {
-            color: #222;
+            color: #e5e9f0;
             overflow-wrap: anywhere;
         }
 
@@ -203,9 +209,10 @@
 
         /* Contact */
         .contact-card {
-            background: white;
+            background: #131d33;
+            border: 1px solid rgba(255,255,255,0.06);
             border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
             padding: 25px;
             margin-bottom: 20px;
             text-align: center;
@@ -213,19 +220,19 @@
 
         .contact-card h5 {
             font-weight: 700;
-            color: #1a1a2e;
+            color: #ffffff;
             margin-bottom: 15px;
         }
 
         .owner-name {
             font-size: 1.1rem;
             font-weight: 700;
-            color: #333;
+            color: #e5e9f0;
             margin-bottom: 8px;
         }
 
         .owner-phone {
-            color: #666;
+            color: #a9b4cc;
             margin-bottom: 20px;
             font-size: 1rem;
         }
@@ -267,18 +274,50 @@
             color: white;
         }
 
+        /* Amenity pills */
+        .detail-card .badge.rounded-pill.bg-light {
+            background: #1b2438 !important;
+            color: #e5e9f0 !important;
+            border-color: rgba(255,255,255,0.12) !important;
+        }
+
+        /* Food menu table */
+        .detail-card .table {
+            color: #e5e9f0;
+        }
+
+        .detail-card .table-light,
+        .detail-card .table-light > th {
+            background: #1b2438;
+            color: #e5e9f0;
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .detail-card .table-bordered {
+            border-color: rgba(255,255,255,0.1);
+        }
+
+        .detail-card .table-bordered td,
+        .detail-card .table-bordered th {
+            border-color: rgba(255,255,255,0.1);
+        }
+
         /* Map */
         .map-container {
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .detail-card .text-muted {
+            color: #7c88a8 !important;
         }
 
         /* Back Button */
         .btn-back {
             background: transparent;
-            color: #4361ee;
-            border: 2px solid #4361ee;
+            color: #4cc9f0;
+            border: 2px solid #4cc9f0;
             padding: 10px 25px;
             border-radius: 50px;
             font-weight: 700;
@@ -294,18 +333,19 @@
 
         .navbar .btn-back:hover {
             background: white;
-            color: #1a1a2e;
+            color: #0d1526;
         }
 
         .btn-back:hover {
-            background: #4361ee;
+            background: linear-gradient(135deg, #4361ee, #4cc9f0);
+            border-color: transparent;
             color: white;
         }
 
         /* Footer */
         .footer {
-            background: #1a1a2e;
-            color: #a8b2d8;
+            background: #060a14;
+            color: #a9b4cc;
             text-align: center;
             padding: 30px;
             margin-top: 40px;
@@ -396,7 +436,7 @@
             Property Title
         </h1>
 
-        <p class="mt-2" style="color:#a8b2d8;">
+        <p class="mt-2" style="color:#a9b4cc;">
 
             <i class="fas fa-map-marker-alt"></i>
 
@@ -446,7 +486,7 @@
 
                 <h4>
                     <i class="fas fa-info-circle"
-                       style="color:#4361ee"></i>
+                       style="color:#4cc9f0"></i>
                     Property Details
                 </h4>
 
@@ -572,11 +612,11 @@
 
                 <h4>
                     <i class="fas fa-align-left"
-                       style="color:#4361ee"></i>
+                       style="color:#4cc9f0"></i>
                     Description
                 </h4>
 
-                <p style="color:#555; line-height:1.8;"
+                <p style="color:#a9b4cc; line-height:1.8;"
                    th:text="${property.description}">
                     Description here
                 </p>
@@ -588,7 +628,7 @@
 
                 <h4>
                     <i class="fas fa-star"
-                       style="color:#4361ee"></i>
+                       style="color:#4cc9f0"></i>
                     Amenities
                 </h4>
 
@@ -614,7 +654,7 @@
 
                 <h4>
                     <i class="fas fa-utensils"
-                       style="color:#4361ee"></i>
+                       style="color:#4cc9f0"></i>
                     Weekly Food Menu
                 </h4>
 
@@ -663,7 +703,7 @@
 
                 <h4>
                     <i class="fas fa-map"
-                       style="color:#4361ee"></i>
+                       style="color:#4cc9f0"></i>
                     Location on Map
                 </h4>
 
@@ -699,7 +739,8 @@
                    th:href="${property.googleMapsLink}"
                    target="_blank"
                    rel="noopener noreferrer"
-                   class="btn btn-primary mt-2">
+                   class="btn btn-primary mt-2"
+                   style="background: linear-gradient(135deg, #4361ee, #4cc9f0); border: none;">
 
                     <i class="fas fa-map-location-dot"></i>
                     Open Exact Location in Google Maps
@@ -795,7 +836,7 @@
 
                 <h4>
                     <i class="fas fa-bolt"
-                       style="color:#4361ee"></i>
+                       style="color:#4cc9f0"></i>
                     Quick Info
                 </h4>
 
