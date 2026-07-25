@@ -55,8 +55,9 @@ public class Property {
     private boolean available = true;
 
     // Stores uploaded image filename
-    @Column(length = 500)
-    private String imageName;
+    @Lob
+    @Column(name = "image", columnDefinition = "LONGBLOB")
+    private byte[] image;
 
     public Property() {
     }
@@ -165,12 +166,12 @@ public class Property {
         this.available = available;
     }
 
-    public String getImageName() {
-        return imageName;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
     public boolean isFoodAvailable() {
         return foodAvailable;

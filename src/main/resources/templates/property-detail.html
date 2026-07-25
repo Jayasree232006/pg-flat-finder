@@ -460,23 +460,26 @@
 
 
             <!-- Property Image -->
+            <!-- Property Image -->
             <div class="property-image-card">
 
-                <img th:if="${property.imageName != null and !property.imageName.isEmpty()}"
-                     th:src="@{'/uploads/properties/' + ${property.imageName}}"
+                <img th:if="${property.image != null}"
+                     th:src="@{/property/image/{id}(id=${property.id})}"
                      th:alt="${property.title}"
-                     class="property-main-image">
+                     class="property-main-image"/>
 
-                <div th:unless="${property.imageName != null and !property.imageName.isEmpty()}"
+                <div th:unless="${property.image != null}"
                      class="no-image-placeholder">
 
                     <i class="fas fa-image"></i>
 
                     <span>
-                        No Property Image Available
-                    </span>
+            No Property Image Available
+        </span>
 
                 </div>
+
+            </div>
 
             </div>
 

@@ -3,7 +3,9 @@ package com.pgflatfinder.pg_flat_finder.controller;
 import com.pgflatfinder.pg_flat_finder.entity.Property;
 import com.pgflatfinder.pg_flat_finder.repository.PropertyRepository;
 import com.pgflatfinder.pg_flat_finder.service.PropertyService;
-
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -165,5 +167,19 @@ public class HomeController {
         }
 
         return "property-detail";
+    }
+    @GetMapping("/property/image/{id}")
+    public ResponseEntity<byte[]> getPropertyImage(@PathVariable Long id) {
+
+        Property property = propertyService.getPropertyById(id);
+
+        if (property.getImage() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline")
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(property.getImage());
     }
 }

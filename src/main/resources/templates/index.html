@@ -739,20 +739,16 @@
                 <!-- Property Image -->
                 <div class="property-image-wrapper">
 
-                    <img th:if="${property.imageName != null and !property.imageName.isEmpty()}"
-                         th:src="@{'/uploads/properties/' + ${property.imageName}}"
+                    <img th:if="${property.image != null}"
+                         th:src="@{/property/image/{id}(id=${property.id})}"
                          th:alt="${property.title}"
-                         class="property-image">
+                         class="property-image"/>
 
-                    <!-- No Image Placeholder -->
-                    <div th:unless="${property.imageName != null and !property.imageName.isEmpty()}"
+                    <div th:unless="${property.image != null}"
                          class="no-image-placeholder">
 
                         <i class="fas fa-image"></i>
-
-                        <span>
-                            No Image Available
-                        </span>
+                        <span>No Image Available</span>
 
                     </div>
 
@@ -829,8 +825,8 @@
                         <i class="fas fa-users"></i>
 
                         <span th:text="${property.gender}">
-        Any
-    </span>
+                            Any
+                        </span>
 
                     </div>
 
@@ -871,7 +867,7 @@
     </p>
 
     <p style="margin-top:10px; font-size:0.8rem;">
-        Built with ❤️ using Spring Boot + MySQL + Bootstrap
+        Built with ❤️
     </p>
 
 </div>

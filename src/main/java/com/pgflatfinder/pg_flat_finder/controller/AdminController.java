@@ -12,11 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.UUID;
+
 
 @Controller
 public class AdminController {
@@ -24,7 +20,6 @@ public class AdminController {
     private final PropertyRepository propertyRepository;
     private final ContactRequestRepository contactRequestRepository;
 
-    private static final String UPLOAD_DIR = "uploads/properties/";
 
     public AdminController(
             PropertyRepository propertyRepository,
@@ -59,38 +54,7 @@ public class AdminController {
             throws IOException {
 
         if (imageFile != null && !imageFile.isEmpty()) {
-
-            Path uploadPath = Paths.get(UPLOAD_DIR);
-
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-
-            String originalFilename = imageFile.getOriginalFilename();
-
-            String extension = "";
-
-            if (originalFilename != null &&
-                    originalFilename.contains(".")) {
-
-                extension = originalFilename.substring(
-                        originalFilename.lastIndexOf(".")
-                );
-            }
-
-            String uniqueFilename =
-                    UUID.randomUUID() + extension;
-
-            Path filePath =
-                    uploadPath.resolve(uniqueFilename);
-
-            Files.copy(
-                    imageFile.getInputStream(),
-                    filePath,
-                    StandardCopyOption.REPLACE_EXISTING
-            );
-
-            property.setImageName(uniqueFilename);
+            property.setImage(imageFile.getBytes());
         }
 
         propertyRepository.save(property);
@@ -129,18 +93,12 @@ public class AdminController {
     public String updateProperty(
             @PathVariable Long id,
             Property property,
-            @RequestParam(
-                    value = "imageFile",
-                    required = false
-            ) MultipartFile imageFile)
-            throws IOException {
+            @RequestParam(value = "imageFile", required = false)
+            MultipartFile imageFile) throws IOException {
 
-        Property existingProperty =
-                propertyRepository.findById(id)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "Property not found with id: " + id
-                                ));
+        Property existingProperty = propertyRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Property not found with id: " + id));
 
         existingProperty.setTitle(property.getTitle());
         existingProperty.setType(property.getType());
@@ -159,82 +117,23 @@ public class AdminController {
         existingProperty.setAmenities(property.getAmenities());
 
         if (imageFile != null && !imageFile.isEmpty()) {
-            // Delete old image before saving the new image
-            if (existingProperty.getImageName() != null &&
-                    !existingProperty.getImageName().isEmpty()) {
-
-                Path oldImagePath = Paths.get(
-                        UPLOAD_DIR,
-                        existingProperty.getImageName()
-                );
-
-                Files.deleteIfExists(oldImagePath);
-            }
-
-            Path uploadPath = Paths.get(UPLOAD_DIR);
-
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-
-            String originalFilename =
-                    imageFile.getOriginalFilename();
-
-            String extension = "";
-
-            if (originalFilename != null &&
-                    originalFilename.contains(".")) {
-
-                extension = originalFilename.substring(
-                        originalFilename.lastIndexOf(".")
-                );
-            }
-
-            String uniqueFilename =
-                    UUID.randomUUID() + extension;
-
-            Path filePath =
-                    uploadPath.resolve(uniqueFilename);
-
-            Files.copy(
-                    imageFile.getInputStream(),
-                    filePath,
-                    StandardCopyOption.REPLACE_EXISTING
-            );
-
-            existingProperty.setImageName(uniqueFilename);
+            existingProperty.setImage(imageFile.getBytes());
         }
 
         propertyRepository.save(existingProperty);
 
         return "redirect:/admin/properties";
     }
-
     @GetMapping("/admin/properties/delete/{id}")
-    public String deleteProperty(@PathVariable Long id)
-            throws IOException {
-
-        Property property = propertyRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException(
-                                "Property not found with id: " + id
-                        ));
-
-        if (property.getImageName() != null &&
-                !property.getImageName().isEmpty()) {
-
-            Path imagePath = Paths.get(
-                    UPLOAD_DIR,
-                    property.getImageName()
-            );
-
-            Files.deleteIfExists(imagePath);
-        }
+    public String deleteProperty(@PathVariable Long id) {
 
         propertyRepository.deleteById(id);
 
         return "redirect:/admin/properties";
     }
+
+
+
     @GetMapping("/admin/contact-requests")
     public String viewContactRequests(Model model) {
 
