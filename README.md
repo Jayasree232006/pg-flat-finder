@@ -1,78 +1,44 @@
 # 🏠 PG Flat Finder
 
-A full-stack web application developed using **Spring Boot**, **Thymeleaf**, and **MySQL** that helps students and working professionals find PG accommodations and rental flats. The application provides an easy way to browse available properties, search based on requirements, view complete property details, locate properties using Google Maps, and contact property owners. It also includes an administrator panel for managing properties and viewing customer enquiries.
+A full-stack web application built using **Java 21**, **Spring Boot**, **Thymeleaf**, and **MySQL** that helps students and working professionals find PG accommodations and rental flats. Users can browse available properties, view detailed information, locate properties using Google Maps, and submit contact requests. Administrators can securely manage property listings through a dedicated dashboard.
+
+The application is deployed on **Render** with **Aiven MySQL** as the cloud database.
 
 ---
 
-# 📖 Table of Contents
+# 🌐 Live Demo
 
-- Project Overview
-- Objectives
-- Features
-- Technology Stack
-- Project Architecture
-- Project Structure
-- Database Design
-- Database Relationships
-- Installation & Setup
-- Configuration
-- Running the Application
-- API Endpoints
-- Repository Layer
-- Future Enhancements
-- Learning Outcomes
-- Author
-
----
-
-# 📌 Project Overview
-
-Finding suitable PGs and rental flats near colleges or workplaces is often difficult because information is scattered across multiple platforms. This project aims to provide a centralized platform where users can easily browse, search, and explore available accommodations.
-
-The application allows administrators to efficiently manage property listings while enabling users to contact property owners directly.
-
----
-
-# 🎯 Objectives
-
-- Simplify the process of finding PGs and flats.
-- Provide complete property information.
-- Allow users to search and filter properties.
-- Display property locations using Google Maps.
-- Enable direct communication with property owners.
-- Provide administrators with complete control over property management.
+**Live Application:** https://pg-flat-finder.onrender.com
 
 ---
 
 # ✨ Features
 
-## User Module
+## 👤 User Features
 
-- Responsive Landing Page
-- Browse Available Properties
-- Search Properties
-- Filter Properties
-- View Detailed Property Information
-- Google Maps Integration
-- Contact Property Owner
-- Property Availability Status
+- Browse available PGs and Flats
+- View detailed property information
+- Google Maps integration
+- View amenities and weekly food menu
+- Check property availability
+- Submit contact requests to property owners
+- Responsive user interface
 
-## Admin Module
+## 🔐 Admin Features
 
 - Secure Admin Login
-- Dashboard
+- Admin Dashboard
 - Add New Property
-- Update Existing Property
+- Edit Existing Property
 - Delete Property
 - Manage Property Availability
 - View Customer Contact Requests
 
 ---
 
-# 🛠 Technology Stack
+# 🛠 Tech Stack
 
 ## Backend
-
 - Java 21
 - Spring Boot
 - Spring MVC
@@ -81,7 +47,6 @@ The application allows administrators to efficiently manage property listings wh
 - Maven
 
 ## Frontend
-
 - HTML5
 - CSS3
 - Bootstrap 5
@@ -89,35 +54,37 @@ The application allows administrators to efficiently manage property listings wh
 - Thymeleaf
 
 ## Database
-
 - MySQL
+- Aiven MySQL (Cloud Database)
 
-## Development Tools
+## Deployment
+- Docker
+- Render
 
+## Tools
 - IntelliJ IDEA
-- MySQL Workbench
 - Git
 - GitHub
 - Postman
 
 ---
 
-# 🏗 Project Architecture
+# 🏗 Architecture
 
 ```
                 User
                   │
                   ▼
-          Spring MVC Controller
+        Spring MVC Controllers
                   │
                   ▼
-             Service Layer
+            Service Layer
                   │
                   ▼
-      Spring Data JPA Repository
+     Spring Data JPA Repository
                   │
                   ▼
-             MySQL Database
+        MySQL (Aiven Cloud)
 ```
 
 ---
@@ -129,30 +96,17 @@ pg-flat-finder
 │
 ├── src
 │   ├── main
-│   │
-│   ├── java
-│   │   ├── controller
-│   │   ├── service
-│   │   ├── repository
-│   │   ├── entity
-│   │   ├── config
-│   │   └── PgFlatFinderApplication.java
-│   │
-│   ├── resources
-│   │   ├── static
-│   │   │   ├── css
-│   │   │   ├── js
-│   │   │   └── images
+│   │   ├── java
+│   │   │   ├── controller
+│   │   │   ├── service
+│   │   │   ├── repository
+│   │   │   ├── entity
+│   │   │   └── config
 │   │   │
-│   │   ├── templates
-│   │   │   ├── welcome.html
-│   │   │   ├── home.html
-│   │   │   ├── property-detail.html
-│   │   │   ├── admin-login.html
-│   │   │   ├── admin-dashboard.html
-│   │   │   └── ...
-│   │   │
-│   │   └── application.properties
+│   │   └── resources
+│   │       ├── static
+│   │       ├── templates
+│   │       └── application.properties
 │
 ├── pom.xml
 └── README.md
@@ -162,159 +116,60 @@ pg-flat-finder
 
 # 🗄 Database Design
 
-The application uses **MySQL** to store property information, administrator data, and customer contact requests.
+The application consists of three main entities:
 
-## Database Name
+### Admin
+- Admin ID
+- Username
+- Password
 
-```
-pgflatfinder
-```
+### Property
+- Property ID
+- Title
+- Type
+- Location
+- Rent
+- Number of Rooms
+- Description
+- Owner Name
+- Contact Number
+- Weekly Food Menu
+- Amenities
+- Availability
 
----
-
-## Entity Relationship Diagram
-
-```
-                   +------------------+
-                   |      Admin       |
-                   +------------------+
-                   | admin_id (PK)    |
-                   | username         |
-                   | password         |
-                   +------------------+
-                           |
-                           | manages
-                           |
-                           ▼
-                 +-----------------------+
-                 |      Property         |
-                 +-----------------------+
-                 | id (PK)               |
-                 | title                 |
-                 | type                  |
-                 | location              |
-                 | rent                  |
-                 | rooms                 |
-                 | description           |
-                 | owner_name            |
-                 | contact_number        |
-                 | available             |
-                 +-----------------------+
-                           ▲
-                           |
-                           | selected by
-                           |
-                 +-------------------------+
-                 |   Contact_Request       |
-                 +-------------------------+
-                 | request_id (PK)         |
-                 | customer_name           |
-                 | email                   |
-                 | phone                   |
-                 | message                 |
-                 | property_id (FK)        |
-                 +-------------------------+
-```
+### Contact Request
+- Request ID
+- Customer Name
+- Email
+- Phone Number
+- Message
+- Property ID
 
 ---
 
-# Database Tables
-
-## 1. Admin
-
-Stores administrator credentials.
-
-| Column | Type | Constraint |
-|--------|------|------------|
-| admin_id | BIGINT | Primary Key |
-| username | VARCHAR | Unique |
-| password | VARCHAR | Not Null |
-
----
-
-## 2. Property
-
-Stores complete property information.
-
-| Column | Type | Constraint |
-|--------|------|------------|
-| id | BIGINT | Primary Key |
-| title | VARCHAR | Not Null |
-| type | VARCHAR | Not Null |
-| location | VARCHAR | Not Null |
-| rent | DOUBLE | Not Null |
-| rooms | INTEGER | Not Null |
-| description | TEXT | Nullable |
-| owner_name | VARCHAR | Not Null |
-| contact_number | VARCHAR | Not Null |
-| available | BOOLEAN | Default TRUE |
-
----
-
-## 3. Contact_Request
-
-Stores enquiries submitted by users.
-
-| Column | Type | Constraint |
-|--------|------|------------|
-| request_id | BIGINT | Primary Key |
-| customer_name | VARCHAR | Not Null |
-| email | VARCHAR | Not Null |
-| phone | VARCHAR | Not Null |
-| message | TEXT | Nullable |
-| property_id | BIGINT | Foreign Key |
-
----
-
-# 🔗 Database Relationships
-
-## Admin → Property
-
-**Relationship:** One-to-Many (1:N)
-
-One administrator can manage multiple properties.
+# 🔗 Entity Relationships
 
 ```
 Admin (1)
      │
-     └──────────► Property (N)
-```
+     └────────────► Property (N)
 
----
-
-## Property → Contact_Request
-
-**Relationship:** One-to-Many (1:N)
-
-One property can receive multiple enquiries.
-
-```
 Property (1)
       │
-      └──────────► Contact_Request (N)
+      └────────────► Contact Request (N)
 ```
 
 ---
 
-# 🔒 Database Constraints
+# ⚙ Installation
 
-- Primary Keys uniquely identify each record.
-- Foreign Keys maintain referential integrity.
-- NOT NULL constraints ensure mandatory fields are filled.
-- UNIQUE constraint prevents duplicate administrator usernames.
-- BOOLEAN field tracks property availability.
-
----
-
-# ⚙ Installation & Setup
-
-## Clone Repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/Jayasree232006/pg-flat-finder.git
 ```
 
-Navigate to the project:
+Navigate to the project folder:
 
 ```bash
 cd pg-flat-finder
@@ -322,24 +177,17 @@ cd pg-flat-finder
 
 ---
 
-## Configure Database
+# 🔧 Configuration
 
-Create the database:
-
-```sql
-CREATE DATABASE pgflatfinder;
-```
-
-Update `application.properties`:
+Configure the following environment variables:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/pgflatfinder
-spring.datasource.username=root
-spring.datasource.password=your_password
-
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
+SPRING_DATASOURCE_URL
+SPRING_DATASOURCE_USERNAME
+SPRING_DATASOURCE_PASSWORD
 ```
+
+For local development, update `application.properties` with your local MySQL credentials.
 
 ---
 
@@ -351,7 +199,7 @@ Using Maven:
 mvn spring-boot:run
 ```
 
-Or run the main application class directly from IntelliJ IDEA.
+Or run the `PgFlatFinderApplication` class directly from IntelliJ IDEA.
 
 Open:
 
@@ -361,46 +209,13 @@ http://localhost:8080
 
 ---
 
-# 🌐 API Endpoints
-
-| Method | Endpoint | Description |
-|---------|----------|-------------|
-| GET | / | Landing Page |
-| GET | /properties | Display Properties |
-| GET | /property/{id} | Property Details |
-| POST | /contact-request | Submit Contact Request |
-| GET | /admin | Admin Dashboard |
-| POST | /properties/add | Add Property |
-| POST | /properties/update | Update Property |
-| POST | /properties/delete | Delete Property |
-
----
-
 # 📦 Repository Layer
 
-The application uses **Spring Data JPA** repositories:
+The project uses Spring Data JPA repositories for database operations:
 
 - AdminRepository
 - PropertyRepository
 - ContactRequestRepository
-
-These repositories simplify CRUD operations without writing SQL queries manually.
-
----
-
-# 🚀 Future Enhancements
-
-- User Registration & Login
-- Favorite Properties
-- Property Reviews and Ratings
-- Email Notifications
-- Image Gallery
-- Advanced Search Filters
-- Payment Integration
-- OTP Verification
-- Chat Between Owner and User
-- Nearby Colleges and Offices
-- AI-based Property Recommendations
 
 ---
 
@@ -408,17 +223,27 @@ These repositories simplify CRUD operations without writing SQL queries manually
 
 Through this project, I gained practical experience in:
 
-- Spring Boot Application Development
+- Spring Boot Development
 - MVC Architecture
 - Spring Data JPA & Hibernate
 - CRUD Operations
 - MySQL Database Design
 - Thymeleaf Templating
 - Bootstrap Responsive UI
-- Form Validation
 - Google Maps Integration
+- Docker Containerization
+- Cloud Deployment using Render
+- Cloud Database Integration using Aiven MySQL
 - Git & GitHub Version Control
-- Full-Stack Web Development
+- Full-Stack Web Application Development
+
+---
+
+# 🚀 Project Status
+
+✅ Successfully Completed and Deployed
+
+This project demonstrates a complete full-stack web application built using Spring Boot, Thymeleaf, MySQL, Docker, Render, and Aiven Cloud Database.
 
 ---
 
@@ -426,10 +251,12 @@ Through this project, I gained practical experience in:
 
 **Jaya Sree Katta**
 
-GitHub: https://github.com/Jayasree232006
+- GitHub: https://github.com/Jayasree232006
+- Repository: https://github.com/Jayasree232006/pg-flat-finder
+- Live Demo: https://pg-flat-finder.onrender.com
 
 ---
 
 # 📄 License
 
-This project is intended for educational and learning purposes.
+This project is developed for educational and learning purposes.
